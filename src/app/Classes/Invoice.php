@@ -2,12 +2,19 @@
 
 namespace App\Classes;
 
-class Invoice {
-  public function index(): string {
+class Invoice
+{
+  public function index(): string
+  {
     return "Invoice";
   }
 
-  public function create(): string {
-    return "Create Invoice";
+  public function show(): string
+  {
+    return "<form action='/invoices/create' method='post'><label>Amount</label><input type='text' name='amount'></input><button type='submit'>Submit</button></form>";
+  }
+  public function create(): string
+  {
+    return 'creating';
   }
 }
