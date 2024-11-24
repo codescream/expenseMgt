@@ -19,13 +19,20 @@ $router = new App\Router();
 
 // $router->register('/', [App\Classes\Home::class, 'index']);
 
-// $router->register('/', [App\Classes\Invoice::class, 'index']);
+// $router->register('/invoices', [App\Classes\Invoice::class, 'index']);
 
-// $router->register('/', [App\Classes\Invoice::class, 'create']);
+// $router->register('/invoices/create', [App\Classes\Invoice::class, 'create']);
+
+// $router
+// ->register('/', [App\Classes\Home::class, 'index'])
+// ->register('/invoices', [App\Classes\Invoice::class, 'index'])
+// ->register('/invoices/create', [App\Classes\Invoice::class, 'create']);
 
 $router
-->register('/', [App\Classes\Home::class, 'index'])
-->register('/invoices', [App\Classes\Invoice::class, 'index'])
-->register('/invoices/create', [App\Classes\Invoice::class, 'create']);
+->get('/', [App\Classes\Home::class, 'index'])
+->get('/invoices', [App\Classes\Invoice::class, 'index'])
+->get('/invoices/create', [App\Classes\Invoice::class, 'show'])
+->post('/invoices/create', [App\Classes\Invoice::class, 'create']);
 
-echo $router->resolve($_SERVER['REQUEST_URI']);
+
+echo $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
