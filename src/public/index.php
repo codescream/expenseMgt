@@ -4,6 +4,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
+define('STORAGE_PATH', __DIR__ . '/../storage');
+
 // $id = new \Ramsey\Uuid\UuidFactory();
 
 // echo $id->uuid4();
@@ -11,7 +13,7 @@ session_start();
 // echo '<pre>';
 // print_r($_SERVER);
 // echo '</pre>';
- 
+
 
 $router = new App\Router();
 
@@ -19,22 +21,27 @@ $router = new App\Router();
 //   echo 'Invoices';
 // });
 
-// $router->register('/', [App\Classes\Home::class, 'index']);
+// $router->register('/', [App\Controllers\Home::class, 'index']);
 
-// $router->register('/invoices', [App\Classes\Invoice::class, 'index']);
+// $router->register('/invoices', [App\Controllers\Invoice::class, 'index']);
 
-// $router->register('/invoices/create', [App\Classes\Invoice::class, 'create']);
+// $router->register('/invoices/create', [App\Controllers\Invoice::class, 'create']);
 
 // $router
-// ->register('/', [App\Classes\Home::class, 'index'])
-// ->register('/invoices', [App\Classes\Invoice::class, 'index'])
-// ->register('/invoices/create', [App\Classes\Invoice::class, 'create']);
+// ->register('/', [App\Controllers\Home::class, 'index'])
+// ->register('/invoices', [App\Controllers\Invoice::class, 'index'])
+// ->register('/invoices/create', [App\Controllers\Invoice::class, 'create']);
 
 $router
-->get('/', [App\Classes\Home::class, 'index'])
-->get('/invoices', [App\Classes\Invoice::class, 'index'])
-->get('/invoices/create', [App\Classes\Invoice::class, 'show'])
-->post('/invoices/create', [App\Classes\Invoice::class, 'create']);
+  ->get('/', [App\Controllers\Home::class, 'index'])
+  ->post('/upload', [App\Controllers\Home::class, 'upload'])
+  ->get('/invoices', [App\Controllers\Invoice::class, 'index'])
+  ->get('/invoices/create', [App\Controllers\Invoice::class, 'show'])
+  ->post('/invoices/create', [App\Controllers\Invoice::class, 'create']);
+
+// echo '<pre>';
+// print_r($router->routes());
+// echo '</pre>';
 
 
 echo $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
