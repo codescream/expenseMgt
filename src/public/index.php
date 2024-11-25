@@ -2,6 +2,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+session_start();
+
 // $id = new \Ramsey\Uuid\UuidFactory();
 
 // echo $id->uuid4();
