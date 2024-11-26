@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-class Home
+use App\View;
+
+class HomeController
 {
-  public function index(): string
+  public function index(): View
   {
 
     // echo "<pre>";
@@ -16,12 +18,7 @@ class Home
     // var_dump($_POST);
     // echo "</pre>";
 
-    return <<<FORM
-      <form action='/upload' method='post' enctype='multipart/form-data'>
-        <input type='file' name='receipt' />
-        <button type='submit'>Upload</button>
-      </form>
-    FORM;
+    return View::make("index", "layout", ["foo"=>"bar"]);
   }
 
   public function upload()

@@ -5,6 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 define('STORAGE_PATH', __DIR__ . '/../storage');
+define('VIEW_PATH', __DIR__ . '/../views');
 
 // $id = new \Ramsey\Uuid\UuidFactory();
 
@@ -33,11 +34,11 @@ $router = new App\Router();
 // ->register('/invoices/create', [App\Controllers\Invoice::class, 'create']);
 
 $router
-  ->get('/', [App\Controllers\Home::class, 'index'])
-  ->post('/upload', [App\Controllers\Home::class, 'upload'])
-  ->get('/invoices', [App\Controllers\Invoice::class, 'index'])
-  ->get('/invoices/create', [App\Controllers\Invoice::class, 'show'])
-  ->post('/invoices/create', [App\Controllers\Invoice::class, 'create']);
+  ->get('/', [App\Controllers\HomeController::class, 'index'])
+  ->post('/upload', [App\Controllers\HomeController::class, 'upload'])
+  ->get('/invoices', [App\Controllers\InvoiceController::class, 'index'])
+  ->get('/invoices/create', [App\Controllers\InvoiceController::class, 'show'])
+  ->post('/invoices/create', [App\Controllers\InvoiceController::class, 'create']);
 
 // echo '<pre>';
 // print_r($router->routes());
