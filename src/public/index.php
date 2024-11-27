@@ -38,7 +38,7 @@ $router = new App\Router();
 try {
   $router
     ->get('/', [App\Controllers\HomeController::class, 'index'])
-    ->get('/', [App\Controllers\HomeController::class,'download'])
+    ->get('/download', [App\Controllers\HomeController::class,'download'])
     ->post('/upload', [App\Controllers\HomeController::class, 'upload'])
     ->get('/invoices', [App\Controllers\InvoiceController::class, 'index'])
     ->get('/invoices/create', [App\Controllers\InvoiceController::class, 'show'])
