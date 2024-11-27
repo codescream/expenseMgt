@@ -1,5 +1,8 @@
 <?php
 
+use App\Exceptions\RouteNotFoundException;
+use App\View;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
@@ -32,17 +35,23 @@ $router = new App\Router();
 // ->register('/', [App\Controllers\Home::class, 'index'])
 // ->register('/invoices', [App\Controllers\Invoice::class, 'index'])
 // ->register('/invoices/create', [App\Controllers\Invoice::class, 'create']);
+try {
+  $router
+    ->get('/', [App\Controllers\HomeController::class, 'index'])
+    ->get('/', [App\Controllers\HomeController::class,'download'])
+    ->post('/upload', [App\Controllers\HomeController::class, 'upload'])
+    ->get('/invoices', [App\Controllers\InvoiceController::class, 'index'])
+    ->get('/invoices/create', [App\Controllers\InvoiceController::class, 'show'])
+    ->post('/invoices/create', [App\Controllers\InvoiceController::class, 'create']);
 
-$router
-  ->get('/', [App\Controllers\HomeController::class, 'index'])
-  ->post('/upload', [App\Controllers\HomeController::class, 'upload'])
-  ->get('/invoices', [App\Controllers\InvoiceController::class, 'index'])
-  ->get('/invoices/create', [App\Controllers\InvoiceController::class, 'show'])
-  ->post('/invoices/create', [App\Controllers\InvoiceController::class, 'create']);
-
-// echo '<pre>';
+  // echo '<pre>';
 // print_r($router->routes());
 // echo '</pre>';
 
 
-echo $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+  echo $router->resolve($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+} catch (RouteNotFoundException $e) {
+  header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+
+  echo View::make("errors/404", "layout", ["errMessage" => $e->getMessage()]);
+}

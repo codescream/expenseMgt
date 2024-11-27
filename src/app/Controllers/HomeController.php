@@ -21,19 +21,24 @@ class HomeController
     return View::make("index", "layout", ["foo"=>"bar"]);
   }
 
+  public function download() {
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment;filename="myfile.pdf"');
+
+    readfile(STORAGE_PATH .'/FullStack Developer.pdf');
+  }
+
   public function upload()
   {
-    echo '<pre>';
-    var_dump($_FILES);
-    echo '</pre>';
-
     $filepath = STORAGE_PATH . '/' . $_FILES['receipt']['name'];
 
     move_uploaded_file($_FILES['receipt']['tmp_name'], $filepath);
 
-    echo '<pre>';
-    var_dump(pathinfo($filepath));
-    echo '</pre>';
-    // DIV;
+    // echo '<pre>';
+    // var_dump(pathinfo($filepath));
+    // echo '</pre>';
+    header('Location: /');
+
+    exit;
   }
 }
